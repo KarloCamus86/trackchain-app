@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import WalletConnectButton from './ConnectButton'
 
 const links = [
   { to: '/',       label: 'Inicio' },
@@ -33,24 +34,29 @@ export default function Navbar() {
           </span>
         </NavLink>
 
-        {/* Links */}
-        <ul className="flex items-center gap-1 text-sm font-medium">
-          {links.map(({ to, label }) => (
-            <li key={to}>
-              <NavLink
-                to={to}
-                end
-                className={({ isActive }) =>
-                  isActive
-                    ? 'px-3 py-1.5 rounded-md bg-white/15 text-white'
-                    : 'px-3 py-1.5 rounded-md text-brand-100/80 hover:text-white hover:bg-white/10 transition-colors'
-                }
-              >
-                {label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        {/* Right side: nav links + wallet */}
+        <div className="flex items-center gap-3">
+          <ul className="flex items-center gap-1 text-sm font-medium">
+            {links.map(({ to, label }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  end
+                  className={({ isActive }) =>
+                    isActive
+                      ? 'px-3 py-1.5 rounded-md bg-white/15 text-white'
+                      : 'px-3 py-1.5 rounded-md text-brand-100/80 hover:text-white hover:bg-white/10 transition-colors'
+                  }
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <div className="w-px h-5 bg-white/20" aria-hidden />
+          <WalletConnectButton />
+        </div>
       </nav>
     </header>
   )
