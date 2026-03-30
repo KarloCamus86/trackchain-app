@@ -1,9 +1,15 @@
-import deployments from '../../blockchain/deployments/local.json'
+import localDeployments   from '../../blockchain/deployments/local.json'
+import sepoliaDeployments from '../../blockchain/deployments/sepolia.json'
 
 // ─── Addresses ───────────────────────────────────────────────────────────────
+// VITE_NETWORK=sepolia  → use Sepolia testnet addresses
+// VITE_NETWORK=<any>    → use local Hardhat addresses (default)
 
-export const REGISTRY_ADDRESS    = deployments.ProductRegistry
-export const TRACE_LOG_ADDRESS   = deployments.TraceabilityLog
+const deployments =
+  import.meta.env.VITE_NETWORK === 'sepolia' ? sepoliaDeployments : localDeployments
+
+export const REGISTRY_ADDRESS  = deployments.ProductRegistry
+export const TRACE_LOG_ADDRESS = deployments.TraceabilityLog
 
 // ─── ABIs (only functions used by the frontend) ──────────────────────────────
 

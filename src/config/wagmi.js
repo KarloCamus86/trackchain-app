@@ -1,16 +1,12 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import { hardhat, sepolia } from 'wagmi/chains'
 
-/**
- * Wagmi + RainbowKit config.
- *
- * - Primary chain: hardhat (localhost:8545)
- * - Secondary chain: sepolia (for testnet deploys)
- * - projectId: replace with a real WalletConnect Cloud ID before production
- *   → https://cloud.walletconnect.com
- */
+// VITE_NETWORK=sepolia  → primary chain is Sepolia (production / Vercel)
+// VITE_NETWORK=<any>    → both chains available, Hardhat first (local dev)
+const isSepolia = import.meta.env.VITE_NETWORK === 'sepolia'
+
 export const wagmiConfig = getDefaultConfig({
   appName:   'TraceChain',
-  projectId: 'tracechain-demo',
-  chains:    [hardhat, sepolia],
+  projectId: 'tracechain-demo', // Replace with real WalletConnect Cloud ID before prod
+  chains:    isSepolia ? [sepolia] : [hardhat, sepolia],
 })
